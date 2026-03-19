@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventario — STOCKR</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <nav class="navbar navbar-dark bg-dark sticky-top site-navbar">
+    <div class="container-xl">
+      <a class="navbar-brand d-flex align-items-center gap-2 brand" href="index.html">
+        <span class="brand-icon">▣</span>
+        <span class="brand-name text-white">STOCKR</span>
+      </a>
+      <div class="d-flex gap-3 align-items-center">
+        <a href="index.html" class="text-white-50 text-decoration-none small">Servicios</a>
+        <a href="alta.html" class="btn btn-alta btn-sm">
+          <i class="bi bi-plus-lg me-1"></i>Nuevo Producto
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex-grow-1 py-5">
+    <div class="container-xl">
+
+      <div class="mb-4">
+        <p class="hero-label mb-1">// catálogo activo</p>
+        <h1 class="hero-title mb-1">Productos<br><span class="hero-accent">en Stock</span></h1>
+        <p class="text-muted">Gestiona tu inventario con precisión y velocidad.</p>
+      </div>
+
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+        <span class="count-badge"><span id="product-count">0</span> productos registrados</span>
+        <input id="search-input" type="text" class="form-control w-auto"
+          placeholder="Buscar producto, categoría o SKU..." style="min-width:240px" />
+      </div>
+
+      <div id="empty-state" class="text-center py-5 text-muted d-none">
+        <div class="fs-1 mb-2">📦</div>
+        <p>No hay productos aún.</p>
+        <a href="alta.html" class="btn btn-alta btn-sm">Agregar el primero</a>
+      </div>
+
+      <div id="product-grid" class="row g-4"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer bg-dark text-secondary text-center py-3">
+    STOCKR &copy; 2025 — Bootstrap 5 + jQuery
+  </footer>
+
+  <div id="toast-wrap" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

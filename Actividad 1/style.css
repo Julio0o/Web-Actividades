@@ -1,4 +1,4 @@
-*,
+*::be,
 *::before,
 *::after {
     margin: 0;
@@ -42,7 +42,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Background animated gradient */
+/* fondo degradado */
 body::before {
     content: '';
     position: fixed;
@@ -113,7 +113,7 @@ body::before {
     color: #fff;
 }
 
-/* --- Navigation --- */
+/* --- Nav bar --- */
 .nav-menu {
     display: flex;
     list-style: none;
@@ -223,7 +223,7 @@ body::before {
     animation: fadeInUp 0.8s ease 0.3s both;
 }
 
-/* --- Buttons --- */
+/* --- Botones --- */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -298,14 +298,14 @@ body::before {
     margin: 0 auto;
 }
 
-/* --- Service Cards Grid --- */
+/* --- seccion de tarjetas de servicio --- */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
 }
 
-/* --- Service Card --- */
+/* --- tarjetas de seervicio --- */
 .service-card {
     background: var(--bg-card);
     border: 1px solid var(--border-glass);
@@ -363,7 +363,7 @@ body::before {
     color: var(--text-muted);
 }
 
-/* --- Premium Card (> $1000) --- */
+/* --- servicios premium (> $1000) --- */
 .service-card.premium {
     border-color: var(--premium-gold);
     box-shadow: 0 0 20px var(--premium-glow), inset 0 0 30px rgba(245, 158, 11, 0.03);
@@ -393,9 +393,9 @@ body::before {
     color: var(--premium-gold-light);
 }
 
-/* --- Team Section --- */
+/* --- seccion del equio --- */
 .team-grid {
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px;
 }
@@ -485,7 +485,7 @@ body::before {
     color: var(--accent-light);
 }
 
-/* --- Animations --- */
+/* --- animaciones--- */
 @keyframes fadeInUp {
     from {
         opacity: 0;

@@ -79,29 +79,17 @@ var servicios = [
 
 var equipo = [
     {
-        nombre: "Julio García",
+        nombre: "Julio Cesar Gutierres Rico",
         rol: "Líder de Proyecto / Full-Stack Developer",
         bio: "Estudiante de Ingeniería en Sistemas Computacionales con experiencia en desarrollo web, administración de servidores Linux y bases de datos. Apasionado por la tecnología y la innovación.",
         iniciales: "JG"
     },
     {
-        nombre: "Ana López",
+        nombre: "Alessandra Hernández Mercado",
         rol: "Especialista en Ciberseguridad",
         bio: "Enfocada en seguridad informática y redes. Certificada en ethical hacking y análisis de vulnerabilidades. Experiencia en auditorías de seguridad para empresas locales.",
-        iniciales: "AL"
+        iniciales: "AH"
     },
-    {
-        nombre: "Carlos Mendoza",
-        rol: "Desarrollador Mobile & Cloud",
-        bio: "Desarrollador de aplicaciones móviles con Flutter y React Native. Experto en arquitectura cloud con AWS y Azure. Participante activo en hackathons.",
-        iniciales: "CM"
-    },
-    {
-        nombre: "María Fernández",
-        rol: "Analista de Datos & IA",
-        bio: "Especialista en ciencia de datos y machine learning. Experiencia con Python, TensorFlow y herramientas de visualización. Colaboradora en proyectos de investigación universitaria.",
-        iniciales: "MF"
-    }
 ];
 
 // ============================================

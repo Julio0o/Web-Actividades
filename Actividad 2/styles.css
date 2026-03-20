@@ -1,8 +1,3 @@
-/* ============================================================
-   STOCKR — styles.css
-   Tema: Industrial-Moderno / Dark-on-light con acento naranja
-   ============================================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
 
 /* ── Variables ── */
@@ -308,7 +303,6 @@ body {
   flex: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

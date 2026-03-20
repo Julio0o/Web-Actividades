@@ -1,8 +1,16 @@
-/* 
+/* =============================================
    SysCode Solutions — App Logic
- */
+   =============================================
+   - Datos de servicios y equipo
+   - Componentes reutilizables (header, footer, nav)
+   - Renderizado dinámico con document.createElement
+   - localStorage: carga servicios extra guardados
+   ============================================= */
 
-// 1. DATOS — Mínimo 10 servicios
+// ============================================
+// 1. DATOS — Servicios base
+// ============================================
+
 var servicios = [
     {
         nombre: "Desarrollo Web Full-Stack",
@@ -65,7 +73,11 @@ var servicios = [
         imagen: "img/ai_automation.png"
     }
 ];
+
+// ============================================
 // 2. DATOS — Integrantes del equipo
+// ============================================
+
 var equipo = [
     {
         nombre: "Julio Cesar Gutierres Rico",
@@ -80,7 +92,35 @@ var equipo = [
         iniciales: "AH"
     },
 ];
-// 3. COMPONENTES REUTILIZABLES
+
+// ============================================
+// 3. HELPER — Combina servicios base + localStorage
+// ============================================
+
+/**
+ * Retorna el array completo de servicios:
+ * los de la lista base más los guardados en localStorage.
+ */
+function obtenerTodosLosServicios() {
+    var extras = [];
+    try {
+        var stored = localStorage.getItem('servicios_extra');
+        if (stored) {
+            extras = JSON.parse(stored);
+        }
+    } catch (e) {
+        extras = [];
+    }
+    return servicios.concat(extras);
+}
+
+// ============================================
+// 4. COMPONENTES REUTILIZABLES
+// ============================================
+
+/**
+ * Crea el header con logo y menú de navegación.
+ */
 function crearHeader() {
     var header = document.createElement("header");
     header.className = "site-header";
@@ -104,6 +144,7 @@ function crearHeader() {
     logo.appendChild(logoIcon);
     logo.appendChild(logoText);
 
+    // Mobile toggle
     var toggle = document.createElement("button");
     toggle.className = "menu-toggle";
     toggle.id = "menu-toggle";
@@ -125,16 +166,18 @@ function crearHeader() {
     return header;
 }
 
-// Crea la lista de navegación.
+/**
+ * Crea la lista de navegación.
+ */
 function crearNav() {
     var ul = document.createElement("ul");
     ul.className = "nav-menu";
     ul.id = "nav-menu";
 
     var items = [
-        { label: "Inicio", seccion: "inicio" },
+        { label: "Inicio",    seccion: "inicio" },
         { label: "Servicios", seccion: "servicios" },
-        { label: "Equipo", seccion: "equipo" }
+        { label: "Equipo",    seccion: "equipo" }
     ];
 
     for (var i = 0; i < items.length; i++) {
@@ -143,11 +186,9 @@ function crearNav() {
         btn.className = "nav-link";
         btn.textContent = items[i].label;
         btn.setAttribute("data-seccion", items[i].seccion);
-        // Closure para capturar el valor correcto
         btn.onclick = (function (seccion) {
             return function () {
                 navegarA(seccion);
-                // Cerrar menú móvil
                 var menu = document.getElementById("nav-menu");
                 if (menu) menu.classList.remove("open");
             };
@@ -160,8 +201,7 @@ function crearNav() {
 }
 
 /**
- * Crea el footer con créditos.
- * Componente reutilizable.
+ * Crea el footer.
  */
 function crearFooter() {
     var footer = document.createElement("footer");
@@ -170,7 +210,6 @@ function crearFooter() {
     var inner = document.createElement("div");
     inner.className = "footer-inner";
 
-    // Enlaces del footer
     var linksList = document.createElement("ul");
     linksList.className = "footer-links";
 
@@ -179,9 +218,7 @@ function crearFooter() {
         var li = document.createElement("li");
         li.textContent = footerItems[i];
         li.onclick = (function (seccion) {
-            return function () {
-                navegarA(seccion.toLowerCase());
-            };
+            return function () { navegarA(seccion.toLowerCase()); };
         })(footerItems[i]);
         linksList.appendChild(li);
     }
@@ -196,9 +233,12 @@ function crearFooter() {
     return footer;
 }
 
-// 4. SECCIONES (VISTAS)
+// ============================================
+// 5. SECCIONES (VISTAS)
+// ============================================
+
 /**
- * Renderiza la sección Inicio.
+ * Renderiza la sección Hero (Inicio).
  */
 function renderInicio() {
     var hero = document.createElement("section");
@@ -207,7 +247,7 @@ function renderInicio() {
 
     var badge = document.createElement("div");
     badge.className = "hero-badge";
-    badge.textContent = " Ingeniería en Sistemas Computacionales";
+    badge.textContent = "✦ Ingeniería en Sistemas Computacionales";
 
     var h1 = document.createElement("h1");
     h1.innerHTML = 'Soluciones tecnológicas <span class="gradient-text">de alto nivel</span>';
@@ -242,6 +282,7 @@ function renderInicio() {
 
 /**
  * Renderiza la sección de Servicios.
+ * Lee del array base + extras guardados en localStorage.
  * Usa bucle forEach para crear tarjetas y condicional if para precios > $1000.
  */
 function renderServicios() {
@@ -249,7 +290,7 @@ function renderServicios() {
     section.className = "section";
     section.id = "section-servicios";
 
-    // Encabezado de sección
+    // — Encabezado de sección con botón "Agregar Servicio" —
     var headerDiv = document.createElement("div");
     headerDiv.className = "section-header";
 
@@ -265,17 +306,26 @@ function renderServicios() {
     desc.className = "section-desc";
     desc.textContent = "Soluciones integrales de tecnología adaptadas a las necesidades de tu negocio.";
 
+    // ——— LINK A alta.html ———
+    var addBtn = document.createElement("a");
+    addBtn.className = "btn btn-primary add-service-btn";
+    addBtn.href = "alta.html";
+    addBtn.textContent = "+ Agregar Servicio";
+
     headerDiv.appendChild(tag);
     headerDiv.appendChild(titulo);
     headerDiv.appendChild(desc);
+    headerDiv.appendChild(addBtn);
     section.appendChild(headerDiv);
 
-    // Grid de servicios
+    // — Grid de servicios (base + localStorage) —
     var grid = document.createElement("div");
     grid.className = "services-grid";
 
+    var todosLosServicios = obtenerTodosLosServicios();
+
     // ——————— BUCLE: Crear una tarjeta por cada servicio ———————
-    servicios.forEach(function (servicio) {
+    todosLosServicios.forEach(function (servicio) {
         var card = document.createElement("div");
         card.className = "service-card";
 
@@ -283,7 +333,6 @@ function renderServicios() {
         if (servicio.precio > 1000) {
             card.classList.add("premium");
 
-            // Badge "Premium"
             var badge = document.createElement("span");
             badge.className = "premium-badge";
             badge.textContent = "Premium";
@@ -327,14 +376,12 @@ function renderServicios() {
 
 /**
  * Renderiza la sección de Equipo / Integrantes.
- * Muestra nombre, rol y experiencia/CV breve.
  */
 function renderEquipo() {
     var section = document.createElement("section");
     section.className = "section";
     section.id = "section-equipo";
 
-    // Encabezado
     var headerDiv = document.createElement("div");
     headerDiv.className = "section-header";
 
@@ -355,11 +402,9 @@ function renderEquipo() {
     headerDiv.appendChild(desc);
     section.appendChild(headerDiv);
 
-    // Grid de tarjetas de equipo
     var grid = document.createElement("div");
     grid.className = "team-grid";
 
-    // ——— BUCLE: Crear tarjeta por cada integrante ———
     for (var i = 0; i < equipo.length; i++) {
         var miembro = equipo[i];
 
@@ -393,7 +438,9 @@ function renderEquipo() {
     return section;
 }
 
-// 5. NAVEGACIÓN SPA
+// ============================================
+// 6. NAVEGACIÓN SPA
+// ============================================
 
 var seccionActual = "inicio";
 
@@ -405,13 +452,9 @@ function navegarA(seccion) {
     seccionActual = seccion;
     var app = document.getElementById("app");
 
-    // Limpiar contenido
     app.innerHTML = "";
-
-    // Insertar header (reutilizable)
     app.appendChild(crearHeader());
 
-    // Insertar sección correspondiente
     if (seccion === "inicio") {
         app.appendChild(renderInicio());
     } else if (seccion === "servicios") {
@@ -420,18 +463,14 @@ function navegarA(seccion) {
         app.appendChild(renderEquipo());
     }
 
-    // Insertar footer (reutilizable)
     app.appendChild(crearFooter());
-
-    // Marcar enlace activo
     actualizarNavActivo(seccion);
-
-    // Scroll al inicio
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-//Resalta el enlace de navegación activo.
-
+/**
+ * Resalta el enlace de navegación activo.
+ */
 function actualizarNavActivo(seccion) {
     var links = document.querySelectorAll(".nav-link");
     for (var i = 0; i < links.length; i++) {
@@ -442,7 +481,17 @@ function actualizarNavActivo(seccion) {
         }
     }
 }
-// 6. INICIALIZACIÓN
+
+// ============================================
+// 7. INICIALIZACIÓN
+// ============================================
+
 document.addEventListener("DOMContentLoaded", function () {
-    navegarA("inicio");
+    // Si la URL tiene #servicios (redirección desde alta.html), abrir esa sección
+    var hash = window.location.hash.replace('#', '');
+    var seccionInicial = (hash === 'servicios' || hash === 'equipo' || hash === 'inicio')
+        ? hash
+        : 'inicio';
+
+    navegarA(seccionInicial);
 });

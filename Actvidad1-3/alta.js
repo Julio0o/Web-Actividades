@@ -1,17 +1,8 @@
-/*
-   SysCode Solutions — Alta de Servicio
-   Tecnologías: jQuery 3.7.1 + Animate.css 4.1.1
-*/
-
 var STORAGE_KEY = 'syscode_servicios_extra';
-
 var getExtras  = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 var saveExtras = arr => localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-
-/* ── Imagen por defecto fija ── */
 var IMG_DEFAULT = "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80";
 
-/* ── Reglas de validación ── */
 var rules = {
     nombre: function(v) {
         if (!v.trim())             return 'El nombre es obligatorio.';
@@ -43,7 +34,6 @@ var rules = {
     }
 };
 
-/* ── Validar campo ── */
 function checkField(name) {
     var $el  = $('#alta-' + name);
     var val  = $el.val();
@@ -64,7 +54,6 @@ function checkField(name) {
     return err;
 }
 
-/* ── Toast ── */
 function showToast(msg, type) {
     var $toast = $('<div>')
         .addClass('alta-toast alta-toast-' + (type || 'success'))
@@ -76,11 +65,8 @@ function showToast(msg, type) {
         $toast.one('animationend', function() { $toast.remove(); });
     }, 3000);
 }
-
-/* ── Render ── */
 function renderAlta() {
     var $root = $('#app-alta');
-
     /* HEADER */
     var $header = $('<header>').addClass('site-header')
         .append(
@@ -200,9 +186,7 @@ function crearCampo(opts) {
     if (opts.contador) {
         var max = opts.maxlength || 100;
         $group.append(
-            $('<div>').addClass('alta-char-counter')
-                      .attr('id', 'alta-counter-' + opts.name)
-                      .text('0 / ' + max)
+            $('<div>').addClass('alta-char-counter').attr('id', 'alta-counter-' + opts.name).text('0 / ' + max)
         );
     }
 
@@ -213,28 +197,21 @@ function crearCampo(opts) {
     $group.append($('<div>').addClass('alta-error-msg').attr('id', 'alta-error-' + opts.name));
     return $group;
 }
-
 function crearTextarea(opts) {
     var $group = $('<div>').addClass('alta-field-group');
-
     var $label = $('<label>').addClass('alta-label').attr('for', 'alta-' + opts.name)
         .html(opts.label + (opts.required ? ' <span class="alta-req">*</span>' : ''));
-
     var $ta = $('<textarea>').attr({
         id:          'alta-' + opts.name,
         placeholder: opts.placeholder || '',
         maxlength:   opts.maxlength || 500,
         rows:        4
     }).addClass('alta-input alta-textarea');
-
     $group.append($label, $ta);
-
     if (opts.contador) {
         var max = opts.maxlength || 500;
         $group.append(
-            $('<div>').addClass('alta-char-counter')
-                      .attr('id', 'alta-counter-' + opts.name)
-                      .text('0 / ' + max)
+            $('<div>').addClass('alta-char-counter').attr('id', 'alta-counter-' + opts.name).text('0 / ' + max)
         );
     }
 
@@ -245,8 +222,6 @@ function crearTextarea(opts) {
     $group.append($('<div>').addClass('alta-error-msg').attr('id', 'alta-error-' + opts.name));
     return $group;
 }
-
-/* ── Eventos ── */
 function bindEventos() {
 
     /* Validación en tiempo real */
@@ -259,8 +234,6 @@ function bindEventos() {
                 }
             });
     });
-
-    /* Contadores */
     ['nombre', 'descripcion'].forEach(function(name) {
         var $counter = $('#alta-counter-' + name);
         if (!$counter.length) return;
@@ -272,7 +245,6 @@ function bindEventos() {
         });
     });
 
-    /* Submit */
     $('#alta-form').on('submit', function(e) {
         e.preventDefault();
 
@@ -308,26 +280,17 @@ function bindEventos() {
             fechaAlta:   new Date().toISOString(),
             esNuevo:     true
         };
-
-        /* Guardar en localStorage */
         var extras = getExtras();
         extras.push(nuevo);
-        saveExtras(extras);
-
-        /* Señales para app.js */
+        saveExtras(extras)
         sessionStorage.setItem('syscode_just_added', nuevo.nombre);
         sessionStorage.setItem('syscode_nav_destino', 'servicios');
-
         showToast('✓ "' + nuevo.nombre + '" guardado. Redirigiendo...', 'success');
-
-        /* Redirigir */
         setTimeout(function() {
             window.location.href = 'index.html';
         }, 1500);
     });
 }
-
-/* ── Iniciar ── */
 $(function() {
     renderAlta();
 });

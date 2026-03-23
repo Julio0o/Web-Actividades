@@ -1,15 +1,4 @@
-/* =============================================
-   SysCode Solutions — App Logic
-   =============================================
-   - Datos de servicios y equipo
-   - Componentes reutilizables (header, footer, nav)
-   - Renderizado dinámico con document.createElement
-   - localStorage: carga servicios extra guardados
-   ============================================= */
-
-// ============================================
 // 1. DATOS — Servicios base
-// ============================================
 
 var servicios = [
     {
@@ -175,9 +164,9 @@ function crearNav() {
     ul.id = "nav-menu";
 
     var items = [
-        { label: "Inicio",    seccion: "inicio" },
+        { label: "Inicio", seccion: "inicio" },
         { label: "Servicios", seccion: "servicios" },
-        { label: "Equipo",    seccion: "equipo" }
+        { label: "Equipo", seccion: "equipo" }
     ];
 
     for (var i = 0; i < items.length; i++) {
@@ -233,9 +222,7 @@ function crearFooter() {
     return footer;
 }
 
-// ============================================
 // 5. SECCIONES (VISTAS)
-// ============================================
 
 /**
  * Renderiza la sección Hero (Inicio).
@@ -280,11 +267,6 @@ function renderInicio() {
     return hero;
 }
 
-/**
- * Renderiza la sección de Servicios.
- * Lee del array base + extras guardados en localStorage.
- * Usa bucle forEach para crear tarjetas y condicional if para precios > $1000.
- */
 function renderServicios() {
     var section = document.createElement("section");
     section.className = "section";
@@ -438,16 +420,9 @@ function renderEquipo() {
     return section;
 }
 
-// ============================================
 // 6. NAVEGACIÓN SPA
-// ============================================
 
 var seccionActual = "inicio";
-
-/**
- * Navega a la sección indicada, limpia el contenido
- * del div#app y re-inserta header + sección + footer.
- */
 function navegarA(seccion) {
     seccionActual = seccion;
     var app = document.getElementById("app");
@@ -481,10 +456,7 @@ function actualizarNavActivo(seccion) {
         }
     }
 }
-
-// ============================================
 // 7. INICIALIZACIÓN
-// ============================================
 
 document.addEventListener("DOMContentLoaded", function () {
     // Si la URL tiene #servicios (redirección desde alta.html), abrir esa sección

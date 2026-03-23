@@ -1,12 +1,5 @@
-/* 
-   SysCode Solutions — App Logic
-   MODIFICADO: Botón "Agregar Servicio" en sección Servicios + carga desde localStorage
-*/
-
-// ─── CLAVE DE ALMACENAMIENTO (debe coincidir con alta-servicio.html) ───
 var STORAGE_KEY = 'syscode_servicios_extra';
 
-// 1. DATOS — Servicios base (mínimo 10)
 var servicios = [
     {
         nombre: "Desarrollo Web Full-Stack",
@@ -151,9 +144,9 @@ function crearNav() {
     ul.id = "nav-menu";
 
     var items = [
-        { label: "Inicio",    seccion: "inicio" },
+        { label: "Inicio", seccion: "inicio" },
         { label: "Servicios", seccion: "servicios" },
-        { label: "Equipo",    seccion: "equipo" }
+        { label: "Equipo", seccion: "equipo" }
     ];
 
     for (var i = 0; i < items.length; i++) {
@@ -429,11 +422,11 @@ function mostrarToastSiNuevo() {
 
     var toast = document.createElement("div");
     toast.style.cssText = [
-        "position:fixed","bottom:28px","right:28px","z-index:9999",
-        "background:rgba(16,185,129,0.15)","border:1px solid rgba(16,185,129,0.4)",
-        "color:#34d399","padding:14px 22px","border-radius:12px",
-        "font-size:.9rem","font-weight:600","box-shadow:0 8px 30px rgba(0,0,0,0.4)",
-        "display:flex","align-items:center","gap:10px",
+        "position:fixed", "bottom:28px", "right:28px", "z-index:9999",
+        "background:rgba(16,185,129,0.15)", "border:1px solid rgba(16,185,129,0.4)",
+        "color:#34d399", "padding:14px 22px", "border-radius:12px",
+        "font-size:.9rem", "font-weight:600", "box-shadow:0 8px 30px rgba(0,0,0,0.4)",
+        "display:flex", "align-items:center", "gap:10px",
         "animation:fadeInUp .4s ease"
     ].join(";");
     toast.innerHTML = '<span style="font-size:1.1rem">✓</span> "' + nombre + '" agregado correctamente.';
@@ -447,11 +440,11 @@ function mostrarToastSiNuevo() {
     }
 
     document.body.appendChild(toast);
-    setTimeout(function() {
+    setTimeout(function () {
         toast.style.transition = "opacity .4s, transform .4s";
         toast.style.opacity = "0";
         toast.style.transform = "translateY(10px)";
-        setTimeout(function() { toast.remove(); }, 400);
+        setTimeout(function () { toast.remove(); }, 400);
     }, 4000);
 }
 

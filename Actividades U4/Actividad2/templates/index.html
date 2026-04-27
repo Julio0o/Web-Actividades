@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>soluciones informaticas | Ingeniería en Sistemas Computacionales</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+</head>
+<body>
+
+
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-bracket">[</span>SOLUCIONES <span class="logo-accent">INFORMÁTICAS</span><span class="logo-bracket">]</span>
+    </div>
+    <ul class="nav-links" id="navLinks"></ul>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span class="status-text">SISTEMAS ONLINE</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-tag" id="heroTag"></div>
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <p class="hero-sub" id="heroSub"></p>
+      <div class="hero-cta" id="heroCta"></div>
+    </div>
+    <div class="hero-terminal" id="heroTerminal"></div>
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="section-header" id="aboutHeader"></div>
+    <div class="about-grid" id="aboutGrid"></div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-header" id="servicesHeader"></div>
+    <div class="services-grid" id="servicesGrid"></div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="tech" id="tech">
+    <div class="section-header" id="techHeader"></div>
+    <div class="tech-track-wrapper">
+      <div class="tech-track" id="techTrack"></div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team" id="team">
+    <div class="section-header" id="teamHeader"></div>
+    <div class="team-grid" id="teamGrid"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer"></footer>
+
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

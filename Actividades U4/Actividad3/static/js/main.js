@@ -106,6 +106,7 @@ function buildHero() {
   tag.appendChild(el('span', { text: 'ISC · INGENIERÍA EN SISTEMAS COMPUTACIONALES' }));
 
   var h1 = document.getElementById('heroTitle');
+  h1.innerHTML = '';
   h1.appendChild(document.createTextNode('Soluciones tecnológicas '));
   h1.appendChild(el('em', { text: 'de alto nivel' }));
 
@@ -162,6 +163,7 @@ function buildTerminal() {
 
 function buildAbout() {
   var hdr = document.getElementById('aboutHeader');
+  hdr.innerHTML = '';
   hdr.appendChild(el('span', { classes: ['section-label'], text: '// 01. ABOUT' }));
   var title = el('h2', { classes: ['section-title'] });
   title.appendChild(document.createTextNode('Números que '));
@@ -183,6 +185,7 @@ function buildAbout() {
 
 function buildServices() {
   var hdr = document.getElementById('servicesHeader');
+  hdr.innerHTML = '';
   hdr.appendChild(el('span', { classes: ['section-label'], text: '// 02. SERVICIOS' }));
   var title = el('h2', { classes: ['section-title'] });
   title.appendChild(document.createTextNode('Lo que '));
@@ -248,6 +251,7 @@ function renderServiceCard(grid, svc, idx) {
 
 function buildTech() {
   var hdr = document.getElementById('techHeader');
+  hdr.innerHTML = '';
   hdr.appendChild(el('span', { classes: ['section-label'], text: '// 03. TECNOLOGÍA' }));
   var title = el('h2', { classes: ['section-title'] });
   title.appendChild(document.createTextNode('Nuestro '));
@@ -270,6 +274,7 @@ function buildTech() {
 
 function buildTeam() {
   var hdr = document.getElementById('teamHeader');
+  hdr.innerHTML = '';
   hdr.appendChild(el('span', { classes: ['section-label'], text: '// 04. EQUIPO' }));
   var title = el('h2', { classes: ['section-title'] });
   title.appendChild(document.createTextNode('Las personas '));
@@ -298,6 +303,7 @@ function buildTeam() {
 function buildContact() {
   // Header
   var hdr = document.getElementById('contactHeader');
+  hdr.innerHTML = '';
   hdr.appendChild(el('span', { classes: ['section-label'], text: '// 05. CONTACTO' }));
   var title = el('h2', { classes: ['section-title'] });
   title.appendChild(document.createTextNode('Solicita una '));

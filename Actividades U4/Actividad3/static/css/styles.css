@@ -2,19 +2,19 @@
    VARIABLES Y RESET
 =========================== */
 :root {
-  --bg-base:       #080612;
-  --bg-surface:    #110d1a;
-  --bg-card:       #1a1527;
-  --bg-card-hover: #231d32;
-  --accent:        #a78bfa;
-  --accent-dim:    rgba(167, 139, 250, 0.12);
-  --accent-glow:   rgba(167, 139, 250, 0.35);
+  --bg-base:       #060e0c;
+  --bg-surface:    #0a1612;
+  --bg-card:       #0f1f1a;
+  --bg-card-hover: #162b24;
+  --accent:        #34d399;
+  --accent-dim:    rgba(52, 211, 153, 0.12);
+  --accent-glow:   rgba(52, 211, 153, 0.35);
   --green:         #39ff14;
   --orange:        #ff6b35;
-  --text-primary:  #e8e6f0;
-  --text-secondary:#8a7a99;
-  --text-muted:    #453d56;
-  --border:        rgba(167, 139, 250, 0.15);
+  --text-primary:  #e6f0ec;
+  --text-secondary:#7a998d;
+  --text-muted:    #3d5649;
+  --border:        rgba(52, 211, 153, 0.15);
   --border-subtle: rgba(255,255,255,0.05);
   --font-mono:     'Courier New', Courier, monospace;
   --font-display:  Georgia, 'Times New Roman', serif;
@@ -135,8 +135,8 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(167,139,250,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(167,139,250,0.04) 1px, transparent 1px);
+    linear-gradient(rgba(52,211,153,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52,211,153,0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: grid-shift 20s linear infinite;
 }
@@ -149,7 +149,7 @@ body {
   position: absolute;
   top: -30%; left: -10%;
   width: 60vw; height: 60vw;
-  background: radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(52,211,153,0.06) 0%, transparent 65%);
   pointer-events: none;
 }
 
@@ -256,7 +256,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 40px rgba(167,139,250,0.08);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 40px rgba(52,211,153,0.08);
   animation: fadeSlideUp 0.8s 0.4s ease both;
 }
 .terminal-bar {
@@ -607,6 +607,173 @@ section {
 }
 
 /* ===========================
+   CONTACT
+=========================== */
+.contact {
+  background: var(--bg-surface);
+  position: relative;
+  overflow: hidden;
+}
+.contact::before {
+  content: '';
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 50vw; height: 50vw;
+  background: radial-gradient(circle, rgba(0,229,255,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.contact-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Formulario de contacto */
+.contact-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.contact-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.contact-form-group.full {
+  grid-column: 1 / -1;
+}
+
+.contact-form-group label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.contact-form-group input,
+.contact-form-group textarea,
+.contact-form-group select {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 0.7rem 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  width: 100%;
+}
+.contact-form-group input:focus,
+.contact-form-group textarea:focus,
+.contact-form-group select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-dim);
+}
+.contact-form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.contact-form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%237a8499' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+.contact-form-group select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.contact-form-group input.input-error,
+.contact-form-group textarea.input-error {
+  border-color: #f43f5e;
+  box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.15);
+}
+
+.field-error {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #f43f5e;
+  letter-spacing: 0.5px;
+  margin-top: 0.2rem;
+}
+
+.contact-submit {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  align-items: center;
+}
+
+/* Mensaje de resultado */
+.contact-result {
+  margin-top: 1.5rem;
+  padding: 1rem 1.4rem;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+  display: none;
+  animation: fadeSlideUp 0.4s ease both;
+}
+.contact-result.success {
+  display: block;
+  background: rgba(57, 255, 20, 0.08);
+  border: 1px solid rgba(57, 255, 20, 0.2);
+  color: var(--green);
+}
+.contact-result.error {
+  display: block;
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  color: #f43f5e;
+}
+
+/* Info de base de datos */
+.contact-db-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.4rem 0.9rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+.contact-db-badge .db-dot {
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+/* ===========================
    FOOTER
 =========================== */
 .footer {
@@ -663,4 +830,6 @@ section {
   .about-grid { grid-template-columns: 1fr 1fr; }
   .about-stat { border-right: none; border-bottom: 1.5px solid var(--border-subtle); }
   .about-stat:last-child { border-bottom: none; }
+  .contact-card { padding: 1.5rem; }
+  .contact-form-row { grid-template-columns: 1fr; }
 }

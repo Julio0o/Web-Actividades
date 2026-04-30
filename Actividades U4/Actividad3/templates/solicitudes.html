@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Solicitudes Recibidas | soluciones informaticas</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+  <style>
+    /* ── Panel específico ── */
+    .panel-wrapper {
+      min-height: 100vh;
+      padding: 6rem 3rem 4rem;
+      background: var(--bg-base);
+    }
+
+    .panel-header {
+      margin-bottom: 3rem;
+    }
+    .panel-header .section-label { display: block; margin-bottom: .6rem; }
+    .panel-back {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 1px;
+      margin-bottom: 1.2rem;
+      transition: color var(--transition);
+    }
+    .panel-back:hover { color: var(--accent); }
+
+    /* ── Tabla de solicitudes ── */
+    .solicitudes-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+    }
+    thead {
+      background: var(--bg-surface);
+    }
+    th {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: .9rem 1.2rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    td {
+      padding: .85rem 1.2rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-surface); }
+
+    .td-name {
+      font-family: var(--font-display);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .td-email {
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      color: var(--accent);
+    }
+    .td-msg {
+      max-width: 300px;
+      font-size: .78rem;
+      line-height: 1.5;
+    }
+    .td-date {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .td-service {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      color: var(--orange);
+    }
+    .td-phone {
+      font-family: var(--font-mono);
+      font-size: .72rem;
+    }
+    .td-actions {
+      display: flex;
+      gap: .5rem;
+    }
+
+    .btn-delete {
+      font-family: var(--font-mono);
+      font-size: .62rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: .3rem .7rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      transition: var(--transition);
+      background: rgba(244,63,94,.12);
+      color: #f43f5e;
+      border: 1px solid rgba(244,63,94,.2);
+    }
+    .btn-delete:hover {
+      background: #f43f5e;
+      color: #fff;
+    }
+
+    .empty-msg {
+      text-align: center;
+      padding: 3rem;
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .5rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      color: var(--text-secondary);
+    }
+    .stat-pill strong {
+      color: var(--accent);
+      font-size: .9rem;
+    }
+
+    .panel-nav {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .panel-nav a {
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: .4rem .8rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+    .panel-nav a:hover,
+    .panel-nav a.active {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    @media (max-width: 768px) {
+      .panel-wrapper { padding: 5rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR mínimo -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-bracket">[</span>SOLUCIONES <span class="logo-accent">INFORMÁTICAS</span><span class="logo-bracket">]</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/panel/">Servicios</a></li>
+      <li><a href="/panel/solicitudes/" style="color:var(--accent)">Solicitudes</a></li>
+    </ul>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span class="status-text">PANEL ADMIN</span>
+    </div>
+  </nav>
+
+  <div class="panel-wrapper">
+
+    <!-- Encabezado -->
+    <div class="panel-header">
+      <a class="panel-back" href="/">← Volver al inicio</a>
+      <span class="section-label">// SOLICITUDES RECIBIDAS</span>
+      <h1 class="section-title">Mensajes de <span>contacto</span></h1>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Navegación del panel -->
+    <div class="panel-nav">
+      <a href="/panel/">⚙ Servicios</a>
+      <a href="/panel/solicitudes/" class="active">📩 Solicitudes</a>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-pill">
+        <span>📩 Total:</span>
+        <strong>{{ solicitudes|length }}</strong>
+      </div>
+    </div>
+
+    <!-- Tabla de solicitudes -->
+    {% if solicitudes %}
+      <div class="solicitudes-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Servicio</th>
+              <th>Mensaje</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in solicitudes %}
+            <tr>
+              <td style="color:var(--text-muted);font-family:var(--font-mono);font-size:.65rem;">{{ forloop.counter }}</td>
+              <td class="td-name">{{ s.nombre }}</td>
+              <td class="td-email">{{ s.email }}</td>
+              <td class="td-phone">{{ s.telefono|default:"—" }}</td>
+              <td class="td-service">{{ s.servicio_interes|default:"—" }}</td>
+              <td class="td-msg">{{ s.mensaje|truncatewords:20 }}</td>
+              <td class="td-date">{{ s.fecha_envio|date:"d/m/Y H:i" }}</td>
+              <td>
+                <div class="td-actions">
+                  <form method="post" action="/panel/solicitudes/" style="display:inline"
+                        onsubmit="return confirm('¿Eliminar solicitud de «{{ s.nombre }}»?')">
+                    {% csrf_token %}
+                    <input type="hidden" name="accion" value="eliminar">
+                    <input type="hidden" name="id"     value="{{ s.id }}">
+                    <button type="submit" class="btn-delete">🗑 Eliminar</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-msg">
+        No hay solicitudes aún — las solicitudes del formulario de contacto aparecerán aquí.
+      </div>
+    {% endif %}
+
+  </div>
+
+  <script>
+    // Navbar scroll
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  </script>
+</body>
+</html>
